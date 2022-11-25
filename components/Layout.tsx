@@ -1,7 +1,8 @@
 import Head from "next/head";
 import Link from "next/link";
-import { Box, Heading, Button, Container, useDisclosure, HStack, Stack, Spacer, VStack, Grid, ButtonProps } from "@chakra-ui/react";
+import { Box, Heading, Button, Container, useDisclosure, HStack, Stack, Spacer, VStack, Grid, ButtonProps, Menu, Icon } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
+import { FaUser, FaUserAlt } from "react-icons/fa"
 
 type MenuItemProps = {
     href: string;
@@ -27,23 +28,21 @@ function Header() {
                         </MenuItem>
                         <Box display={['block', 'none']} onClick={onToggle}>
                             <Button variant="outline">
-                            <HamburgerIcon />
+                                <HamburgerIcon />
                             </Button>
                         </Box>
                     </HStack>
 
                     <Stack direction={['column', 'row']} justify="start" align={['start', 'center']} display={[isOpen ? 'flex' : 'none', 'flex']} spacing={4}>
-                        <MenuItem href="/search">Search</MenuItem>
-                        <MenuItem href="/" disabled>Watchlist</MenuItem>
-                        <MenuItem href="/" disabled>History</MenuItem>
+                        <MenuItem href="/movie/search">Search</MenuItem>
+                        <MenuItem href="/watchlist" disabled>Watchlist</MenuItem>
+                        <MenuItem href="/history" disabled>History</MenuItem>
                     </Stack>
 
                     <Spacer />
 
-                    <Box display={[isOpen ? 'block' : 'none', 'block']}>
-                        <MenuItem href="/" variant="outline" disabled>
-                            What to watch
-                        </MenuItem>
+                    <Box display={[isOpen ? 'flex' : 'none', 'flex']}>
+                        <MenuItem href="/account" leftIcon={<FaUserAlt />}> Account</MenuItem>
                     </Box>
                 </Stack>
             </Container>
