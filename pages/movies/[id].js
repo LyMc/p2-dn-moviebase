@@ -1,8 +1,8 @@
-import { useRouter } from 'next/router';
-import Image from 'next/image';
-import Head from 'next/head';
-import useSWR from 'swr';
-import { buildImageUrl } from 'utils/api';
+import { useRouter } from "next/router";
+import Image from "next/image";
+import Head from "next/head";
+import useSWR from "swr";
+import { buildImageUrl } from "utils/api";
 import {
   Badge,
   Box,
@@ -14,14 +14,14 @@ import {
   Stack,
   Tag,
   Text,
-} from '@chakra-ui/react';
-import Layout from 'components/Layout';
-import HistoryButton from 'components/HistoryButton';
+} from "@chakra-ui/react";
+import Layout from "components/Layout";
+import HistoryButton from "components/HistoryButton";
+import FavouriteButton from "components/FavouriteButton";
 
 const MovieContent = () => {
   const { id } = useRouter().query;
   const { data, error } = useSWR(id && `/api/movies/${id}`);
-
   if (error) {
     return (
       <Text color="red">
@@ -40,16 +40,20 @@ const MovieContent = () => {
     return <Text color="red">{data.status_message}</Text>;
   }
   return (
-    <Stack direction={['column', 'row']} spacing={4}>
+    <Stack
+      direction={["column", "row"]}
+      spacing={4}
+      boxShadow="md"
+      p="6"
+      rounded="md"
+      bg="rgba(0,0,0,0.2)"
+    >
       <Head>
         <title>{data.title}</title>
       </Head>
       <Box minW="300px" pos="relative">
-        <HStack pos="absolute" zIndex={1} top={2} right={2}>
-          <HistoryButton />
-        </HStack>
         <Image
-          src={buildImageUrl(data.poster_path, 'w300')}
+          src={buildImageUrl(data.poster_path, "w300")}
           alt="Movie poster"
           layout="responsive"
           width="300"
@@ -76,7 +80,21 @@ const MovieContent = () => {
             </Badge>
           ))}
         </Stack>
-        <Box>{data.overview}</Box>
+        <Box color="#cccccc">{data.overview}</Box>
+        <Stack direction="row">
+          <HistoryButton />
+          <FavouriteButton />
+        </Stack>
+        <Stack flex="1" justifyContent="end">
+          <HStack justify="space-between">
+            <Box>Votes: {data.vote_count}</Box>
+            <Box>
+              {data.spoken_languages.map((lg, i) => (
+                <Text key={i}>{lg.name}</Text>
+              ))}
+            </Box>
+          </HStack>
+        </Stack>
       </Stack>
     </Stack>
   );
