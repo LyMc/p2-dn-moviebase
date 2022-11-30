@@ -11,6 +11,8 @@ export default async function handler(req, res) {
   const { method } = req;
   const { id } = req.query;
 
+  console.log(req.query);
+
   if (method === "GET") {
     const history = await History.findOne({ id });
 

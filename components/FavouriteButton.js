@@ -4,8 +4,11 @@ import { useRouter } from "next/router";
 import useSWR, { useSWRConfig } from "swr";
 import { fetcher } from "utils/api";
 
-export default function FavouriteButton() {
-  const { id } = useRouter().query;
+export default function FavouriteButton({ ID }) {
+  let { id } = useRouter().query;
+  if (!id) {
+    id = ID;
+  }
   const { data } = useSWR(`/api/watchlist/${id}`);
   const { mutate } = useSWRConfig();
   return (

@@ -14,9 +14,14 @@ import {
   InputRightElement,
   VStack,
   Button,
+  Image,
+  Card,
+  CardBody,
+  Heading,
 } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
 import Layout from "components/Layout";
+import { buildImageUrl } from "utils/api";
 
 function SearchBar() {
   const router = useRouter();
@@ -79,30 +84,49 @@ function SearchResults() {
   }
   return (
     <UnorderedList stylePosition="inside">
-      {data.results.map(({ id, title, release_date, popularity, overview }) => (
-        <ListItem
-          key={id}
-          display="flex"
-          flexDir="column"
-          alignItems="start"
-          mb="10"
-          gap="1"
-          color=" #cccccc"
-          boxShadow="md"
-          p="6"
-          rounded="md"
-        >
-          <Link href={`/movies/${id}`} passHref legacyBehavior>
-            <Button as="a" variant="link">
-              <Text as="span" color="white" fontSize="20">
-                {title}
-              </Text>
-            </Button>
+      {data.results.map(
+        ({ id, title, release_date, popularity, poster_path }) => (
+          <Link href={`/movies/${id}`} key={id}>
+            <ListItem
+              display="flex"
+              flexDir="column"
+              alignItems="start"
+              mb="6"
+              gap="1"
+              color=" #cccccc"
+              boxShadow="md"
+              p="6"
+              rounded="md"
+              bg="rgba(0,0,0,0.5)"
+              _hover={{ filter: "blur(0.8px)" }}
+            >
+              <Card
+                direction={{ base: "column", sm: "row" }}
+                overflow="hidden"
+                variant="outline"
+                border="none"
+                w="100%"
+                padding="0"
+              >
+                <Image
+                  maxW={{ base: "100%", sm: "50px" }}
+                  src={buildImageUrl(poster_path)}
+                  alt="Movie poster"
+                  layout="responsive"
+                  maxH="225"
+                  objectFit="cover"
+                  objectPosition="center"
+                />
+                <CardBody>
+                  <Heading size="md">{title}</Heading>
+                  <Text>Release Date: {release_date}</Text>
+                  <Text>Popularity: {popularity}</Text>
+                </CardBody>
+              </Card>
+            </ListItem>
           </Link>
-          <Text as="popularity">Release Date: {release_date}</Text>
-          <Text as="popularity">Popularity: {popularity}</Text>
-        </ListItem>
-      ))}
+        )
+      )}
     </UnorderedList>
   );
 }

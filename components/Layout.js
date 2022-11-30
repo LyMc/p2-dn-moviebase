@@ -16,7 +16,7 @@ import { HamburgerIcon } from "@chakra-ui/icons";
 
 const MenuItem = ({ href, children, ...props }) => (
   <Link href={href} passHref legacyBehavior>
-    <Button as="a" variant="link" {...props}>
+    <Button as="a" variant="" {...props} _hover={{ color: " grey" }}>
       {children}
     </Button>
   </Link>
@@ -26,7 +26,7 @@ function Header() {
   const { isOpen, onToggle } = useDisclosure();
 
   return (
-    <Box bg="black">
+    <Box bgGradient="linear(#000000 50%, #181A1B)">
       <Container>
         <Stack
           as="nav"
@@ -37,7 +37,7 @@ function Header() {
         >
           <HStack justify="space-between">
             <MenuItem href="/" mr={8}>
-              <Heading size="lg">Moviebase</Heading>
+              <Heading size="lg">Main page</Heading>
             </MenuItem>
             <Box display={["block", , "none"]} onClick={onToggle}>
               <Button variant="outline">
@@ -77,7 +77,7 @@ export default function Layout({ title, children }) {
         {title && <title>{title}</title>}
         <link rel="icon" href="../public/favicon.ico" />
       </Head>
-      <Grid minH="100vh" bg="#666666">
+      <Grid minH="100vh" bg="#181A1B">
         <VStack w="full" align="stretch" spacing={8}>
           <Header />
           <Box as="main" h="full">
