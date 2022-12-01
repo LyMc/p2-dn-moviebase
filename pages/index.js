@@ -1,12 +1,12 @@
 import { Center, Heading } from "@chakra-ui/react";
 import Layout from "components/Layout";
-
+import { MoviesContent } from "./watchlist";
+import { Watch } from "./recommend";
+import { HistoryContent } from "./history";
 export default function Home() {
   return (
     <Layout title="Moviebase">
-      <Center h="full">
-        <Heading as="h2">Moviebase is Up and running</Heading>
-      </Center>
+      <Center h="full"></Center>
     </Layout>
   );
 }

@@ -1,6 +1,6 @@
 import Layout from "components/Layout";
-import useSWR from "swr";
-
+import useSWR, { useSWRConfig } from "swr";
+import Movie from "components/Movie";
 import {
   Badge,
   Box,
@@ -15,6 +15,8 @@ import {
   Heading,
   HStack,
   Image,
+  Input,
+  InputGroup,
   Link,
   Stack,
   Tag,
@@ -22,10 +24,14 @@ import {
   Wrap,
   WrapItem,
 } from "@chakra-ui/react";
-import { buildImageUrl } from "utils/api";
-import HistoryButton from "components/HistoryButton";
-const HistoryContent = () => {
+
+export const HistoryContent = () => {
   const { data, error } = useSWR(`/api/history/history`);
+
+  if (error) {
+    return <Center h="full">An error occured</Center>;
+  }
+
   if (!data) {
     return (
       <Center h="full">
@@ -33,61 +39,12 @@ const HistoryContent = () => {
       </Center>
     );
   }
+
   return (
     <>
       {data.length > 0 ? (
-        data.map((movie) => (
-          <WrapItem
-            key={movie.id}
-            w={[300, 400, 500]}
-            boxShadow="inner"
-            p="1"
-            rounded="md"
-            bg="rgba(0,0,0,0.5)"
-          >
-            <Card
-              direction={{ base: "column", sm: "row" }}
-              overflow="hidden"
-              variant="outline"
-              bg="rgba(0,0,0,0.7)"
-              key={movie.id}
-              w={[300, 400, 500]}
-              border="none"
-            >
-              <Image
-                objectFit="cover"
-                maxW={{ base: "100%", sm: "200px" }}
-                src={buildImageUrl(movie.poster_path)}
-                alt="Movie poster"
-                layout="responsive"
-                maxH="225"
-              />
-              <CardBody w={[300, 400, 500]}>
-                <Heading size="md">{movie.title}</Heading>
-                <Text py="2">{movie.release_date}</Text>
-                <Stack direction="row" flexWrap="wrap" mb="4">
-                  {movie.genres?.map((genre) => (
-                    <Badge
-                      key={genre.id}
-                      colorScheme="purple"
-                      variant="outline"
-                      mb="2"
-                    >
-                      {genre.name}
-                    </Badge>
-                  ))}
-                </Stack>
-                <Stack direction="row">
-                  <HistoryButton ID={movie.id} />
-                </Stack>
-                <Stack>
-                  <Link href={`/movies/${movie.id}`}>
-                    <Text mt="5">More...</Text>
-                  </Link>
-                </Stack>
-              </CardBody>
-            </Card>
-          </WrapItem>
+        data.map(({ data, date }) => (
+          <Movie key={data.id} data={data} date={date} />
         ))
       ) : (
         <div>Your watchlist is empty</div>
@@ -98,7 +55,7 @@ const HistoryContent = () => {
 export default function Watchlist() {
   return (
     <Layout title="Watchlist">
-      <Wrap spacing="30px" justify="center">
+      <Wrap spacing="30px" justify="space-evenly">
         <HistoryContent />
       </Wrap>
     </Layout>

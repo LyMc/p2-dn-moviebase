@@ -60,7 +60,7 @@ function Header() {
           <Spacer />
 
           <Box display={[isOpen ? "block" : "none", , "block"]}>
-            <MenuItem href="/watch" variant="outline">
+            <MenuItem href="/recommend" variant="outline">
               What to watch
             </MenuItem>
           </Box>
@@ -80,7 +80,7 @@ export default function Layout({ title, children }) {
       <Grid minH="100vh" bg="#181A1B">
         <VStack w="full" align="stretch" spacing={8}>
           <Header />
-          <Box as="main" h="full">
+          <Box as="main" h="full" paddingBottom="10">
             {children}
           </Box>
         </VStack>

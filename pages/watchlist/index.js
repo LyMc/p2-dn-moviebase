@@ -3,21 +3,14 @@ import useSWR from "swr";
 
 import {
   Badge,
-  Box,
-  Button,
   Card,
   CardBody,
-  CardFooter,
   Center,
   CircularProgress,
-  CircularProgressLabel,
-  Container,
   Heading,
-  HStack,
   Image,
   Link,
   Stack,
-  Tag,
   Text,
   Wrap,
   WrapItem,
@@ -25,8 +18,12 @@ import {
 import { buildImageUrl } from "utils/api";
 import HistoryButton from "components/HistoryButton";
 import FavouriteButton from "components/FavouriteButton";
-const MoviesContent = () => {
+export const MoviesContent = () => {
   const { data, error } = useSWR(`/api/watchlist/watchlist`);
+  if (error) {
+    return <Center h="full">An error has occured</Center>;
+  }
+
   if (!data) {
     return (
       <Center h="full">
@@ -83,8 +80,8 @@ const MoviesContent = () => {
                   <FavouriteButton ID={movie.id} />
                 </Stack>
                 <Stack>
-                  <Link href={`/movies/${movie.id}`}>
-                    <Text mt="5">More...</Text>
+                  <Link href={`/movies/${movie.id}`} mt="5">
+                    <Text>More...</Text>
                   </Link>
                 </Stack>
               </CardBody>
@@ -92,7 +89,7 @@ const MoviesContent = () => {
           </WrapItem>
         ))
       ) : (
-        <div>Your watchlist is empty</div>
+        <div>{data.data}</div>
       )}
     </>
   );
@@ -100,7 +97,7 @@ const MoviesContent = () => {
 export default function Watchlist() {
   return (
     <Layout title="Watchlist">
-      <Wrap spacing="30px" justify="center">
+      <Wrap spacing="30px" justify="space-evenly">
         <MoviesContent />
       </Wrap>
     </Layout>

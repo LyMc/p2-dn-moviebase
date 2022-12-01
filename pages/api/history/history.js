@@ -8,16 +8,16 @@ const getMovieUrl = (id) =>
 export default async function handler(req, res) {
   await dbConnect();
 
-  const hisory = await History.find();
-  if (hisory.length > 0) {
+  const history = await History.find();
+
+  if (history.length > 0) {
     const movies = await Promise.all(
-      hisory.map((movie) => {
-        return fetcher(getMovieUrl(movie.id));
+      history.map(async (movie) => {
+        return { data: await fetcher(getMovieUrl(movie.id)), date: movie.date };
       })
     );
-
     res.status(200).json(movies);
   } else {
-    res.status(200).json({ data: "Your hisory is empty" });
+    res.status(200).json({ data: "Your history is empty" });
   }
 }

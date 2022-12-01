@@ -69,6 +69,7 @@ function SearchResults() {
   if (!terms) {
     return <Text>Type some terms and submit for a quick search</Text>;
   }
+
   if (error) {
     return (
       <Text color="red">
@@ -76,12 +77,15 @@ function SearchResults() {
       </Text>
     );
   }
+
   if (!data) {
     return <Progress size="xs" isIndeterminate />;
   }
+
   if (!data.results.length) {
     return <Text>No results</Text>;
   }
+
   return (
     <UnorderedList stylePosition="inside">
       {data.results.map(
