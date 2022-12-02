@@ -66,6 +66,7 @@ function SearchBar() {
 function SearchResults() {
   const { terms } = useRouter().query;
   const { data, error } = useSWR(terms && `/api/search?terms=${terms}`);
+  console.log(data);
   if (!terms) {
     return <Text>Type some terms and submit for a quick search</Text>;
   }

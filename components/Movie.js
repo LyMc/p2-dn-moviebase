@@ -27,6 +27,7 @@ const Movie = ({ data, date }) => {
     setDateValue(e.target.value);
   };
 
+  console.log(data);
   const handleChangeDate = (e, id) => {
     e.preventDefault();
     setLoadingBtn(true);
@@ -70,7 +71,6 @@ const Movie = ({ data, date }) => {
           src={buildImageUrl(data.poster_path)}
           alt="Movie poster"
           layout="responsive"
-          maxH="280"
         />
         <CardBody w={[300, 400, 500]}>
           <Heading size="md">{data.title}</Heading>
@@ -95,10 +95,12 @@ const Movie = ({ data, date }) => {
               as="form"
               gap="2"
               onSubmit={(e) => handleChangeDate(e, data.id)}
+              flexWrap="wrap"
             >
               <Input
                 type="date"
-                width="70%"
+                min={data.release_date}
+                max={Moment(Date.now()).format("YYYY-MM-DD")}
                 value={dateValue || Moment(date).format("YYYY-MM-DD")}
                 onChange={(e) => handleChange(e)}
               />

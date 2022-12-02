@@ -47,7 +47,7 @@ export const HistoryContent = () => {
           <Movie key={data.id} data={data} date={date} />
         ))
       ) : (
-        <div>Your watchlist is empty</div>
+        <div>Your history is empty</div>
       )}
     </>
   );
@@ -55,7 +55,7 @@ export const HistoryContent = () => {
 export default function Watchlist() {
   return (
     <Layout title="Watchlist">
-      <Wrap spacing="30px" justify="space-evenly">
+      <Wrap spacing="50px" justify="center">
         <HistoryContent />
       </Wrap>
     </Layout>

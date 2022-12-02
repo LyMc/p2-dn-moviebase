@@ -76,7 +76,8 @@ export const MoviesContent = () => {
                   ))}
                 </Stack>
                 <Stack direction="row">
-                  <HistoryButton ID={movie.id} />
+                  {new Date(movie.release_date).getTime() <
+                    new Date().getTime() && <HistoryButton ID={movie.id} />}
                   <FavouriteButton ID={movie.id} />
                 </Stack>
                 <Stack>

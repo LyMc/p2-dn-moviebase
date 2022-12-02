@@ -1,4 +1,3 @@
-import { fetcher } from "utils/api";
 import History from "models/History";
 import dbConnect from "utils/dbConnect";
 

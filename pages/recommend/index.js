@@ -11,9 +11,6 @@ export const Watch = () => {
   return <Recommended id={data.id} title={data.title} />;
 };
 
-// request in db care va genera film deja vizionat
-// daca istoricul de vizionare este gol vom genera un id random pentru film
-// dupa ce primim id-ul filmului facem alt request care ne va afisa filmele recomandate  filmului din istoric
 export default function Watchlist() {
   return (
     <Layout title="Recommendation">

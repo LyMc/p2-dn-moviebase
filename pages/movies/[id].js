@@ -22,6 +22,9 @@ import FavouriteButton from "components/FavouriteButton";
 const MovieContent = () => {
   const { id } = useRouter().query;
   const { data, error } = useSWR(id && `/api/movies/${id}`);
+  const date = new Date(32);
+  console.log(date);
+  console.log(data);
   if (error) {
     return (
       <Text color="red">
@@ -82,7 +85,9 @@ const MovieContent = () => {
         </Stack>
         <Box color="#cccccc">{data.overview}</Box>
         <Stack direction="row">
-          <HistoryButton />
+          {new Date(data.release_date).getTime() < new Date().getTime() && (
+            <HistoryButton />
+          )}
           <FavouriteButton />
         </Stack>
         <Stack flex="1" justifyContent="end">
