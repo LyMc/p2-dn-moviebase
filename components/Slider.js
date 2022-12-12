@@ -4,27 +4,10 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
-import Moment from "moment";
 
-import {
-  Badge,
-  Box,
-  ButtonGroup,
-  Card,
-  CardBody,
-  CardFooter,
-  Center,
-  CircularProgress,
-  Divider,
-  Heading,
-  Image,
-  Link,
-  Stack,
-  Text,
-} from "@chakra-ui/react";
-import { buildImageUrl } from "utils/api";
-import FavouriteButton from "./FavouriteButton";
-const Slider = ({ data, star, date }) => {
+import { Card, Center, CircularProgress } from "@chakra-ui/react";
+import CardOnHome from "./CardOnHome";
+const Slider = ({ data, star, date, gen }) => {
   if (!data) {
     return (
       <Center h="full">
@@ -77,44 +60,14 @@ const Slider = ({ data, star, date }) => {
               justifyContent: "center",
             }}
           >
-            <Card w="100%" h="100%" bg="rgba(0,0,0,0.7)">
-              <CardBody padding="0" pos="relative">
-                <Image
-                  objectFit="cover"
-                  objectPosition="center"
-                  w={{ base: "100%" }}
-                  maxH="120"
-                  src={buildImageUrl(
-                    movie.backdrop_path ||
-                      movie.poster_path ||
-                      movie.data.backdrop_path
-                  )}
-                  alt="Movie poster"
-                />
-                <Box pos="absolute" top="0" right="0">
-                  {star && <FavouriteButton ID={movie.id || movie.data.id} />}
-                </Box>
-                <Stack mt="2" spacing="3" color="white" paddingLeft="3">
-                  <Link href={`/movies/${movie.id || movie.data.id}`}>
-                    <Text>{movie.title || movie.data.title}</Text>
-                    {star && date ? (
-                      <Text>
-                        Release date:
-                        <Badge ml="2">
-                          {movie.release_date || movie.data.release_date}
-                        </Badge>
-                      </Text>
-                    ) : movie.data ? (
-                      <Text>
-                        Seen at {Moment(movie.date).format("YYYY-MM-DD")}
-                      </Text>
-                    ) : (
-                      <Text>Popularity: {movie.popularity}</Text>
-                    )}
-                  </Link>
-                </Stack>
-              </CardBody>
-              <Divider />
+            <Card
+              w="100%"
+              h="100%"
+              bg="rgba(0,0,0,0.7)"
+              _hover={{ transform: "scale(1.1)" }}
+              cursor="pointer"
+            >
+              <CardOnHome movie={movie} star={star} date={date} gen={gen} />
             </Card>
           </SwiperSlide>
         ))}

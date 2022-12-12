@@ -5,10 +5,12 @@ import {
   Center,
   CircularProgress,
   Heading,
+  IconButton,
   Image,
   Link,
   Stack,
   Text,
+  Tooltip,
   Wrap,
   WrapItem,
 } from "@chakra-ui/react";
@@ -17,8 +19,8 @@ import useSWR from "swr";
 import { buildImageUrl } from "utils/api";
 import FavouriteButton from "./FavouriteButton";
 import HistoryButton from "./HistoryButton";
-
-const Recommended = ({ id, title }) => {
+import { TiRefreshOutline } from "react-icons/ti";
+const Recommended = ({ id, title, reroll }) => {
   const { data, error } = useSWR(id && `/api/recommended/${id}`);
 
   if (error) {
@@ -35,11 +37,18 @@ const Recommended = ({ id, title }) => {
   return (
     <>
       {title ? (
-        <Heading mb="5">
-          Because you watched{" "}
-          <Text as="span" color="grey">
-            {title}
+        <Heading mb="5" display="flex" justifyContent="space-between">
+          <Text>
+            Because you watched{" "}
+            <Text as="span" color="grey">
+              {title}
+            </Text>
           </Text>
+          <Tooltip label="Re-roll">
+            <IconButton bg="" fontSize="32">
+              <TiRefreshOutline cursor="pointer" onClick={reroll} />
+            </IconButton>
+          </Tooltip>
         </Heading>
       ) : (
         <Heading>Our recommendations</Heading>

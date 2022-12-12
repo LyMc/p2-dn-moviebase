@@ -27,7 +27,6 @@ const Movie = ({ data, date }) => {
     setDateValue(e.target.value);
   };
 
-  console.log(data);
   const handleChangeDate = (e, id) => {
     e.preventDefault();
     setLoadingBtn(true);
