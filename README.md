@@ -32,7 +32,8 @@
 
 
 ## Watchlist page 
-
+#
+#
 ![](public/images/rsz_1watchlist-image.png)
 #
 #
@@ -44,7 +45,8 @@
 
 
 ## History page 
-
+#
+#
 ![](public/images/rsz_history-image.png)
 #
 #
@@ -55,7 +57,8 @@
 
 
 ## Recommended page 
-
+#
+#
 ![](public/images/rsz_rec-image.png)
 #
 #
