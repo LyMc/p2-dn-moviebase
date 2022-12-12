@@ -1,7 +1,7 @@
 # Moviebase
 
 ```diff
-! Next.js
+# Next.js
 + MongoDB
 @@ Chakra UI @@
 ```
