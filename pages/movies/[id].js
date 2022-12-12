@@ -22,9 +22,6 @@ import FavouriteButton from "components/FavouriteButton";
 const MovieContent = () => {
   const { id } = useRouter().query;
   const { data, error } = useSWR(id && `/api/movies/${id}`);
-  const date = new Date(32);
-  console.log(date);
-  console.log(data);
   if (error) {
     return (
       <Text color="red">
@@ -58,11 +55,11 @@ const MovieContent = () => {
         <Image
           src={buildImageUrl(data.poster_path, "w300")}
           alt="Movie poster"
-          layout="responsive"
           width="300"
           height="450"
-          objectFit="contain"
           unoptimized
+          quality="75"
+          priority
         />
       </Box>
       <Stack>
