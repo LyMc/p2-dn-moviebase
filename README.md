@@ -5,7 +5,13 @@
 + MongoDB
 @@ Chakra UI @@
 ```
+#
+#
 ## Main page
+#
+#
+#
+
 ![](public/images/rsz_main-image.png)
 
 
@@ -23,6 +29,9 @@
 
 
 
+#
+#
+#
 
 ## Watchlist page 
 
