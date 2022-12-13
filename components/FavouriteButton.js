@@ -1,32 +1,32 @@
-import { ViewIcon } from "@chakra-ui/icons";
+import { StarIcon } from "@chakra-ui/icons";
 import { IconButton, Tooltip } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import useSWR, { useSWRConfig } from "swr";
 import { fetcher } from "utils/api";
 
-export default function HistoryButton({ ID }) {
+export default function FavouriteButton({ ID }) {
   let { id } = useRouter().query;
   if (!id) {
     id = ID;
   }
-  const { data } = useSWR(`/api/history/${id}`);
+  const { data } = useSWR(`/api/watchlist/${id}`);
   const { mutate } = useSWRConfig();
   return (
-    <Tooltip label={data?.found ? "Remove from history" : "Add to history"}>
+    <Tooltip label={data?.found ? "Remove from watchlist" : "Add to Watchlist"}>
       <IconButton
         isLoading={!data}
-        color={data?.found ? "green" : "white"}
-        colorScheme={data?.found ? "green" : "gray"}
+        color={data?.found ? "gold" : "white"}
+        colorScheme={data?.found ? "yellow" : "gray"}
         size="sm"
         onClick={() => {
-          mutate(`/api/history/${id}`, () =>
-            fetcher(`/api/history/${id}`, {
+          mutate(`/api/watchlist/${id}`, () =>
+            fetcher(`/api/watchlist/${id}`, {
               method: data.found ? "DELETE" : "PUT",
             })
           );
         }}
       >
-        <ViewIcon w={6} h={6} />
+        <StarIcon w={6} h={6} />
       </IconButton>
     </Tooltip>
   );
